@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'predictor-home' %}">Go back to home!</a>
+    <br><br><br>
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Enter your symptoms below:</legend>
+                {{form.as_p}}
+            </fieldset>
+            <div>
+                <button type="submit">Find my Disease</button>
+            </div>
+        </form>
+    </div>
+
+    {% if post %}
+        <style>
+            table, th, td {
+            border: 2px solid rgb(124, 121, 121);
+            }
+            
+            table {
+            width: 60%;
+            }
+        </style>
+        <h4>Symptoms : {{symptoms}}</h4>
+        <br><br>
+        <h3>Predictions:</h3>
+
+        <table>
+        <tr>
+            <th>Disease</th>
+            <th>Probability</th>
+        </tr>
+        {% for i in res %}
+            <tr>
+                <td>{{i.0}}</td>
+                <td>{{i.1}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+    {% endif %}
+
+</body>
+</html>
